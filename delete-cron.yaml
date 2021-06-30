@@ -1,0 +1,24 @@
+
+apiVersion: batch/v1beta1            
+kind: CronJob                        
+metadata:
+  name: kafka-reset
+spec:
+  schedule: "*/15 * * * *"            
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kafka-reset
+            image: gcr.io/lively-video/kafka-topic-reset:latest            
+            env:
+            - name: TOPIC
+              value: "test-topic"
+            - name: PARTITIONS
+              value: "3" 
+            - name: REPLICATION
+              value: "3"
+          restartPolicy: OnFailure
+          imagePullSecrets:
+          - name: lively-gcr-secret
