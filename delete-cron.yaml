@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: kafka-reset
 spec:
-  schedule: "*/15 * * * *"            
+  schedule: "0 10 * * *"            
   jobTemplate:
     spec:
       template:
@@ -14,7 +14,7 @@ spec:
             image: gcr.io/lively-video/kafka-topic-reset:latest            
             env:
             - name: TOPIC
-              value: "test-topic"
+              value: "hub-rooms"
             - name: PARTITIONS
               value: "3" 
             - name: REPLICATION
